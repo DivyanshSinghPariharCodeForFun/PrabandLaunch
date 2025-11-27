@@ -36,8 +36,8 @@ export default function Home() {
           <CalculatorSection />
           <InstitutionsSection />
           <BenefitsSection />
-          <ContactSection />
           <FAQSection />
+          <ContactSection />
           <Footer />
         </>
       )}

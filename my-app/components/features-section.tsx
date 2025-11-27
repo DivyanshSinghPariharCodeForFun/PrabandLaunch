@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 
 const AiSupplyPage = () => {
   return (
-    <div id="features" className="min-h-screen bg-[#F3F4F6] text-[#1F2937] font-sans selection:bg-[#A5D8FF]">
+    <div id="features" className="min-h-screen bg-[#ffffff] text-[#1F2937] font-sans selection:bg-[#007ea7]">
       
       {/* --- Header Section --- */}
       <motion.header
@@ -14,14 +14,14 @@ const AiSupplyPage = () => {
         viewport={{ once: true, margin: "-100px" }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         style={{ willChange: "transform, opacity" }}
-        className="container mx-auto px-6 pt-24 pb-16 text-center max-w-6xl"
+        className="container mx-auto px-6 2xl:px-12 pt-24 2xl:pt-32 pb-16 2xl:pb-24 text-center max-w-6xl 2xl:max-w-[1400px]"
       >
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.1 }}
-          className="text-xs font-bold tracking-[0.2em] uppercase mb-6 text-[#1A4D8F]"
+          className="text-xs 2xl:text-sm font-bold tracking-[0.2em] uppercase mb-6 text-[#003459]"
         >
           Introducing AI Supply
         </motion.p>
@@ -30,7 +30,7 @@ const AiSupplyPage = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
-          className="font-serif text-5xl md:text-7xl text-[#1F2937] leading-[1.1]"
+          className="font-serif text-5xl md:text-7xl 2xl:text-8xl text-[#1F2937] leading-[1.1]"
         >
           AI agents designed to think, <br className="hidden md:block" />
           act, and deliver at scale
@@ -38,10 +38,10 @@ const AiSupplyPage = () => {
       </motion.header>
 
       {/* --- Main Content Grid --- */}
-      <main className="container mx-auto px-6 pb-24 max-w-7xl">
+      <main className="container mx-auto px-6 2xl:px-12 pb-24 2xl:pb-32 max-w-7xl 2xl:max-w-[1600px]">
         
         {/* Top Row: Two Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 2xl:gap-10 mb-6 2xl:mb-10">
           
           {/* Card 1: Data Analysis */}
           <motion.div
@@ -69,10 +69,10 @@ const AiSupplyPage = () => {
             </motion.div>
             
             <div className="mt-auto">
-              <h3 className="text-2xl md:text-3xl font-normal mb-4 text-[#1F2937]">
+              <h3 className="text-2xl md:text-3xl 2xl:text-4xl font-normal mb-4 text-[#1F2937]">
                 Unify and Analyze All Your Data
               </h3>
-              <p className="text-[#6B7280] leading-relaxed text-lg font-light">
+              <p className="text-[#6B7280] leading-relaxed text-lg 2xl:text-xl font-light">
                 Connect internal docs, third-party tools, and real-time inputs into a single intelligent interface. Let AI surface insights that drive smarter, more confident business decisions.
               </p>
             </div>
@@ -104,10 +104,10 @@ const AiSupplyPage = () => {
             </motion.div>
 
             <div className="mt-auto">
-              <h3 className="text-2xl md:text-3xl font-normal mb-4 text-[#1F2937]">
+              <h3 className="text-2xl md:text-3xl 2xl:text-4xl font-normal mb-4 text-[#1F2937]">
                 Automate High-Frequency Workflows
               </h3>
-              <p className="text-[#6B7280] leading-relaxed text-lg font-light">
+              <p className="text-[#6B7280] leading-relaxed text-lg 2xl:text-xl font-light">
                 AI Supply agents break down complex tasks into clear, traceable steps. Eliminate repetitive work and scale your team's output with unmatched efficiency and precision.
               </p>
             </div>
@@ -135,25 +135,15 @@ const AiSupplyPage = () => {
               style={{ willChange: "transform, opacity" }}
               className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center"
             >
-              <h2 className="text-3xl md:text-5xl font-normal mb-6 text-[#1F2937] leading-tight">
+              <h2 className="text-3xl md:text-5xl 2xl:text-6xl font-normal mb-6 text-[#1F2937] leading-tight">
                 Accelerate Execution <br />
                 with Reliable Autonomy
               </h2>
-              <p className="text-[#6B7280] leading-relaxed text-lg font-light mb-10 max-w-md">
+              <p className="text-[#6B7280] leading-relaxed text-lg 2xl:text-xl font-light mb-10 max-w-md">
                 Our agents don't just assist — they complete tasks end-to-end with accountability and speed. Track progress, refine outputs, and get results faster.
               </p>
               
               <div className="flex items-center gap-8">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  style={{ willChange: "transform" }}
-                  className="bg-[#1A4D8F] text-white px-6 py-3 text-sm font-medium rounded-sm hover:bg-[#0F2344] transition-colors"
-                >
-                  View use cases
-                </motion.button>
-                
                 <div className="flex items-center gap-3 hidden">
                   {/* Avatar Stack */}
                   <div className="flex -space-x-3">
@@ -182,7 +172,7 @@ const AiSupplyPage = () => {
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.5 }}
               style={{ willChange: "transform, opacity" }}
-              className="w-full md:w-1/2 min-h-[400px] md:min-h-auto bg-[#F3F4F6] relative"
+              className="w-full md:w-1/2 min-h-[400px] md:min-h-auto bg-[#ffffff] relative"
             >
               <Image
                 src="/ImageOne.png"

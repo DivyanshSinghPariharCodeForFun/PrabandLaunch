@@ -43,15 +43,15 @@ export default function CalculatorSection() {
     }, [numTeachers, weeklyHours, hourlyValue])
 
     return (
-        <section id="calculator" className="bg-[#F3F4F6] py-20 md:py-32">
-            <div className="mx-auto max-w-4xl px-6">
+        <section id="calculator" className="bg-[#ffffff] py-20 md:py-32 2xl:py-40">
+            <div className="mx-auto max-w-4xl 2xl:max-w-5xl px-6 2xl:px-12">
                 {/* Header */}
                 <div className="mb-12 text-center">
                     <TextEffect
                         preset="fade-in-blur"
                         speedSegment={0.3}
                         as="h2"
-                        className="text-sm font-semibold uppercase tracking-wider text-[#1A4D8F] mb-4">
+                        className="text-sm 2xl:text-base font-semibold uppercase tracking-wider text-[#003459] mb-4">
                         CALCULATOR
                     </TextEffect>
                     <TextEffect
@@ -59,7 +59,7 @@ export default function CalculatorSection() {
                         speedSegment={0.3}
                         delay={0.2}
                         as="h3"
-                        className="text-3xl font-bold md:text-4xl">
+                        className="text-3xl font-bold md:text-4xl 2xl:text-5xl">
                         Quantify the cost of not automating.
                     </TextEffect>
                 </div>
@@ -85,7 +85,7 @@ export default function CalculatorSection() {
                         viewport={{ once: true }}
                         transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
                         style={{ willChange: "transform, opacity" }}
-                        className="bg-white border border-[#E5E7EB] rounded-xl p-8 space-y-8"
+                        className="bg-white border border-[#E5E7EB] rounded-xl p-8 2xl:p-12 space-y-8 2xl:space-y-10"
                     >
                         {/* Number of Teachers */}
                         <motion.div
@@ -95,12 +95,12 @@ export default function CalculatorSection() {
                             transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.3 }}
                         >
                             <div className="flex items-center justify-between mb-2">
-                                <label className="text-base font-medium text-foreground">
+                                <label className="text-base 2xl:text-lg font-medium text-foreground">
                                     Number of Teachers
                                 </label>
                                 <motion.span
                                     key={numTeachers}
-                                    initial={{ scale: 1.2, color: '#1A4D8F' }}
+                                    initial={{ scale: 1.2, color: '#007ea7' }}
                                     animate={{ scale: 1, color: 'inherit' }}
                                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                                     style={{ willChange: "transform" }}
@@ -115,7 +115,7 @@ export default function CalculatorSection() {
                                 max="50"
                                 value={numTeachers}
                                 onChange={(e) => setNumTeachers(Number(e.target.value))}
-                                className="w-full h-2 bg-[#E5E7EB] rounded-lg appearance-none cursor-pointer accent-[#1A4D8F]"
+                                className="w-full h-2 bg-[#E5E7EB] rounded-lg appearance-none cursor-pointer accent-[#007ea7]"
                             />
                         </motion.div>
 
@@ -127,12 +127,12 @@ export default function CalculatorSection() {
                             transition={{ duration: 0.5, delay: 0.4 }}
                         >
                             <div className="flex items-center justify-between mb-2">
-                                <label className="text-base font-medium text-foreground">
+                                <label className="text-base 2xl:text-lg font-medium text-foreground">
                                     Weekly manual admin hours per teacher
                                 </label>
                                 <motion.span
                                     key={weeklyHours}
-                                    initial={{ scale: 1.2, color: '#1A4D8F' }}
+                                    initial={{ scale: 1.2, color: '#007ea7' }}
                                     animate={{ scale: 1, color: 'inherit' }}
                                     transition={{ duration: 0.3 }}
                                     className="text-lg font-semibold text-foreground"
@@ -149,7 +149,7 @@ export default function CalculatorSection() {
                                 max="40"
                                 value={weeklyHours}
                                 onChange={(e) => setWeeklyHours(Number(e.target.value))}
-                                className="w-full h-2 bg-[#E5E7EB] rounded-lg appearance-none cursor-pointer accent-[#1A4D8F]"
+                                className="w-full h-2 bg-[#E5E7EB] rounded-lg appearance-none cursor-pointer accent-[#007ea7]"
                             />
                         </motion.div>
 
@@ -161,12 +161,12 @@ export default function CalculatorSection() {
                             transition={{ duration: 0.5, delay: 0.5 }}
                         >
                             <div className="flex items-center justify-between mb-2">
-                                <label className="text-base font-medium text-foreground">
+                                <label className="text-base 2xl:text-lg font-medium text-foreground">
                                     Teacher hourly value
                                 </label>
                                 <motion.span
                                     key={hourlyValue}
-                                    initial={{ scale: 1.2, color: '#1A4D8F' }}
+                                    initial={{ scale: 1.2, color: '#007ea7' }}
                                     animate={{ scale: 1, color: 'inherit' }}
                                     transition={{ duration: 0.3 }}
                                     className="text-lg font-semibold text-foreground"
@@ -181,7 +181,7 @@ export default function CalculatorSection() {
                                 step="10"
                                 value={hourlyValue}
                                 onChange={(e) => setHourlyValue(Number(e.target.value))}
-                                className="w-full h-2 bg-[#E5E7EB] rounded-lg appearance-none cursor-pointer accent-[#1A4D8F]"
+                                className="w-full h-2 bg-[#E5E7EB] rounded-lg appearance-none cursor-pointer accent-[#007ea7]"
                             />
                         </motion.div>
                         <motion.div
@@ -190,7 +190,7 @@ export default function CalculatorSection() {
                             viewport={{ once: true }}
                             transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.6 }}
                             style={{ willChange: "transform, opacity" }}
-                            className="bg-[#1A4D8F] text-white rounded-xl p-8"
+                            className="bg-[#003459] text-white rounded-xl p-8"
                         >
                             <div className="space-y-4">
                                 <motion.p
@@ -227,7 +227,7 @@ export default function CalculatorSection() {
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.8 }}
-                            className="text-muted-foreground leading-relaxed text-base text-center max-w-2xl mx-auto"
+                            className="text-muted-foreground leading-relaxed text-base 2xl:text-lg text-center max-w-2xl mx-auto"
                         >
                             Prabhand automates over 80% of academic operations, giving teachers more time to teach — not manage paperwork.
                         </motion.p>

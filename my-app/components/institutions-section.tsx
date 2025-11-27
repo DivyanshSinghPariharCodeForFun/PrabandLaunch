@@ -1,11 +1,8 @@
 'use client'
 import React, { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { motion, AnimatePresence } from 'motion/react'
 import { 
   Building2, 
-  GraduationCap, 
-  School, 
   BookOpen, 
   FileText,
   Heart,
@@ -33,18 +30,6 @@ const institutions: Institution[] = [
     icon: BookOpen
   },
   {
-    id: 'schools',
-    name: 'Schools',
-    description: 'Complete academic workflow management — attendance, exams, assignments, grading, and communication.',
-    icon: School
-  },
-  {
-    id: 'colleges',
-    name: 'Colleges',
-    description: 'Advanced academic and administrative management for higher education institutions.',
-    icon: GraduationCap
-  },
-  {
     id: 'training-centers',
     name: 'Training Centers',
     description: 'Efficiently manage skill development programs, certifications, and professional training courses.',
@@ -61,23 +46,21 @@ const institutions: Institution[] = [
 const floatingButtons = [
   { name: 'Departments', Icon: Heart },
   { name: 'Training Centers', Icon: Bus },
-  { name: 'Colleges', Icon: GraduationCap },
   { name: 'Tuition Teachers', Icon: Building2 },
-  { name: 'Coaching Institutes', Icon: BookOpen },
-  { name: 'Schools', Icon: School }
+  { name: 'Coaching Institutes', Icon: BookOpen }
 ]
 
 export default function InstitutionsSection() {
-  const [expandedId, setExpandedId] = useState<string>('schools')
+  const [expandedId, setExpandedId] = useState<string>('tuition-teachers')
 
   const toggleExpanded = (id: string) => {
     setExpandedId(expandedId === id ? '' : id)
   }
 
   return (
-    <section id="institutions" className="bg-white py-20 md:py-32">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid md:grid-cols-2 gap-12 items-stretch min-h-[600px]">
+    <section id="institutions" className="bg-white py-20 md:py-32 2xl:py-40">
+      <div className="mx-auto max-w-7xl 2xl:max-w-[1600px] px-6 2xl:px-12">
+        <div className="grid md:grid-cols-2 gap-12 2xl:gap-16 items-stretch min-h-[600px] 2xl:min-h-[700px]">
           
           {/* Left Side - Gradient Background with Floating UI Elements */}
           <motion.div
@@ -86,7 +69,7 @@ export default function InstitutionsSection() {
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
             style={{ willChange: "transform, opacity" }}
-            className="relative rounded-lg overflow-hidden bg-gradient-to-br from-[#A5D8FF] via-[#FFA966] to-[#C39CF6] p-8 md:p-12"
+            className="relative rounded-lg overflow-hidden bg-gradient-to-br from-[#007ea7] via-[#007ea7] to-[#007ea7] p-8 md:p-12"
           >
             {/* Floating UI Elements */}
             <div className="relative w-full h-full flex flex-col items-center justify-center gap-4">
@@ -98,7 +81,7 @@ export default function InstitutionsSection() {
                 transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.2 }}
                 whileHover={{ scale: 1.05, y: -2 }}
                 style={{ willChange: "transform, opacity" }}
-                className="bg-[#0F2344] text-white px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 shadow-lg z-10"
+                className="bg-[#003459] text-white px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2 shadow-lg z-10"
               >
                 <FileText className="w-4 h-4" />
                 <span>SaaS</span>
@@ -155,7 +138,7 @@ export default function InstitutionsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.1 }}
-                className="text-xs font-bold uppercase tracking-wider text-[#1A4D8F] mb-6"
+                className="text-xs font-bold uppercase tracking-wider text-[#003459] mb-6"
               >
                 INSTITUTIONS
               </motion.p>
@@ -166,7 +149,7 @@ export default function InstitutionsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.2 }}
-                className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-12 leading-tight"
+                className="text-3xl md:text-4xl lg:text-5xl 2xl:text-6xl font-bold text-foreground mb-12 leading-tight"
               >
                 Built for real classroom <br />
                 Across every type of
@@ -194,7 +177,7 @@ export default function InstitutionsSection() {
                         style={{ willChange: "transform" }}
                         className="w-full flex items-center justify-between py-4 text-left hover:opacity-80 transition-opacity"
                       >
-                        <span className="text-lg font-medium text-foreground">
+                        <span className="text-lg 2xl:text-xl font-medium text-foreground">
                           {institution.name}
                         </span>
                         <motion.span
@@ -226,30 +209,6 @@ export default function InstitutionsSection() {
                 })}
               </div>
             </div>
-
-            {/* View use cases Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.5 }}
-              className="mt-8"
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                style={{ willChange: "transform" }}
-              >
-                <Button 
-                  variant="default" 
-                  size="lg"
-                  className="bg-[#1A4D8F] text-white hover:bg-[#0F2344]"
-                >
-                  View use cases
-                </Button>
-              </motion.div>
-            </motion.div>
           </motion.div>
 
         </div>

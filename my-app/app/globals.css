@@ -45,6 +45,13 @@
 }
 
 :root {
+  /* Fresh Sky Color Palette */
+  --white: #ffffff;
+  --fresh-sky: #00a7e1;
+  --ink-black: #00171f;
+  --deep-space-blue: #003459;
+  --cerulean: #007ea7;
+  
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

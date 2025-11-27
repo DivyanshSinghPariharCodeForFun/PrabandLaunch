@@ -1,77 +1,177 @@
 'use client'
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
-import { Github, Twitter, Linkedin, Mail, Facebook } from 'lucide-react'
+import { Twitter, Linkedin, Facebook, ArrowRight, MapPin, Phone, Mail } from 'lucide-react'
 import { motion } from 'motion/react'
 
 const footerLinks = {
-  product: [
+  quickLinks: [
+    { name: 'Home', href: '#' },
     { name: 'Features', href: '#features' },
-    { name: 'Solutions', href: '#solutions' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Updates', href: '#updates' },
-  ],
-  company: [
     { name: 'About', href: '#about' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Careers', href: '#careers' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Pricing', href: '#pricing' },
   ],
-  resources: [
-    { name: 'Documentation', href: '#docs' },
-    { name: 'Help Center', href: '#help' },
-    { name: 'Community', href: '#community' },
-    { name: 'Partners', href: '#partners' },
+  contactUs: [
+    { name: 'Chandigarh, India', href: '#', icon: 'location' },
+    { name: '+91 98765 43210', href: 'tel:+919876543210', icon: 'phone' },
+    { name: 'contact@prabhand.in', href: 'mailto:contact@prabhand.in', icon: 'mail' },
   ],
   legal: [
-    { name: 'Privacy', href: '#privacy' },
-    { name: 'Terms', href: '#terms' },
-    { name: 'Cookie Policy', href: '#cookies' },
-    { name: 'Licenses', href: '#licenses' },
+    { name: 'Privacy Policy', href: '#privacy' },
+    { name: 'Terms Of Service', href: '#terms' },
   ],
 }
 
 const socialLinks = [
-  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
   { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
-  { name: 'GitHub', icon: Github, href: 'https://github.com' },
   { name: 'Facebook', icon: Facebook, href: 'https://facebook.com' },
-  { name: 'Email', icon: Mail, href: 'mailto:hello@prabhand.com' },
+  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
 ]
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer id="contact" className="relative border-t border-[#E5E7EB] bg-[#F3F4F6]">
-      {/* Gradient Background Effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F3F4F6] to-white opacity-50" />
-      
-      <div className="relative mx-auto max-w-7xl px-6 py-12 md:py-16 lg:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-6"
-        >
-          {/* Brand Column */}
+    <footer id="contact" className="relative bg-[#2C2C2C]">
+      {/* Main Content Area - Light Background */}
+      <div className="bg-[#F5F5F5]">
+        <div className="relative mx-auto max-w-7xl 2xl:max-w-[1600px] px-6 py-12 md:py-16 2xl:py-20 lg:px-12 2xl:px-16">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:col-span-2"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4"
           >
-            <Link href="/" aria-label="home" className="mb-6 inline-block">
-              <Logo />
-            </Link>
-            <p className="mb-6 max-w-sm text-sm text-muted-foreground leading-relaxed">
-              Automate your institute&apos;s entire academic operations. Teach better, manage smarter, and grow faster with Prabhand.
-            </p>
-            
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
+            {/* Quick Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <h3 className="mb-4 text-sm font-semibold text-[#1F2937]">Quick Links</h3>
+              <ul className="space-y-3">
+                {footerLinks.quickLinks.map((link, index) => (
+                  <motion.li
+                    key={link.name}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className="text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#1F2937]"
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Contact Us */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="lg:col-span-2"
+            >
+              <h3 className="mb-4 text-sm font-semibold text-[#1F2937]">Contact Us</h3>
+              <ul className="space-y-3">
+                {footerLinks.contactUs.map((link, index) => {
+                  const IconComponent = link.icon === 'location' ? MapPin : link.icon === 'phone' ? Phone : Mail
+                  return (
+                    <motion.li
+                      key={link.name}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                    >
+                      <Link
+                        href={link.href}
+                        className="flex items-center gap-2 text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#1F2937]"
+                      >
+                        <IconComponent className="h-4 w-4 text-[#003459]" />
+                        {link.name}
+                      </Link>
+                    </motion.li>
+                  )
+                })}
+              </ul>
+            </motion.div>
+
+            {/* Legal */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <h3 className="mb-4 text-sm font-semibold text-[#1F2937]">Legal</h3>
+              <ul className="space-y-3">
+                {footerLinks.legal.map((link, index) => (
+                  <motion.li
+                    key={link.name}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className="text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#1F2937]"
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom Bar - Dark Background */}
+      <div className="border-t border-[#404040] bg-[#2C2C2C]">
+        <div className="mx-auto max-w-7xl px-6 py-6 lg:px-12">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            {/* Logo Box with Dotted Border */}
+            <div className="flex items-center">
+              <div className="flex h-10 items-center justify-center rounded border-2 border-dashed border-[#6B7280] px-4">
+                <Link href="/" aria-label="home">
+                  <Logo className="[&_span]:!text-white [&_span]:!bg-none" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Center Links */}
+            <div className="flex items-center gap-6 text-sm text-[#9CA3AF]">
+              <Link
+                href="#terms"
+                className="transition-colors duration-150 hover:text-white"
+              >
+                Terms
+              </Link>
+              <Link
+                href="#privacy"
+                className="transition-colors duration-150 hover:text-white"
+              >
+                Privacy
+              </Link>
+              <Link
+                href="#cookies"
+                className="transition-colors duration-150 hover:text-white"
+              >
+                Cookies
+              </Link>
+            </div>
+
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-3">
               {socialLinks.map((social, index) => {
                 const Icon = social.icon
                 return (
@@ -80,150 +180,22 @@ export default function Footer() {
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: 0.2 + index * 0.1 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
+                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                    whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     <Link
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex h-10 w-10 items-center justify-center rounded-lg border border-[#E5E7EB] bg-white text-[#6B7280] transition-all duration-200 hover:border-[#1A4D8F] hover:bg-[#1A4D8F] hover:text-white"
+                      className="flex h-10 w-10 items-center justify-center rounded-full bg-[#404040] text-white transition-colors duration-200 hover:bg-[#007ea7]"
                       aria-label={social.name}
                     >
-                      <Icon className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
+                      <Icon className="h-4 w-4" />
                     </Link>
                   </motion.div>
                 )
               })}
-            </div>
-          </motion.div>
-
-          {/* Product Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h3 className="mb-4 text-sm font-semibold text-[#1F2937]">Product</h3>
-            <ul className="space-y-3">
-              {footerLinks.product.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#1F2937]"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Company Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Company</h3>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#1F2937]"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Resources Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Resources</h3>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#1F2937]"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Legal Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-          >
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Legal</h3>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link, index) => (
-                <motion.li
-                  key={link.name}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
-                >
-                  <Link
-                    href={link.href}
-                    className="text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#1F2937]"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-        </motion.div>
-
-        {/* Bottom Bar */}
-        <div className="mt-12 border-t border-border pt-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm text-[#6B7280]">
-              © {currentYear} Prabhand. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <span className="hidden sm:inline">Made with</span>
-              <span className="inline-flex items-center gap-1">
-                <span className="text-red-500">♥</span>
-                <span className="hidden sm:inline">for education</span>
-              </span>
             </div>
           </div>
         </div>

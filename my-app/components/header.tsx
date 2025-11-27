@@ -1,10 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { Logo } from '@/components/logo'
 import { Menu, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import React from 'react'
-import { cn } from '@/lib/utils'
+import { motion } from 'motion/react'
 
 const menuItems = [
     { name: 'Features', href: '#features' },
@@ -17,129 +15,166 @@ const menuItems = [
 
 export const HeroHeader = () => {
     const [menuState, setMenuState] = React.useState(false)
+    const [activeSection, setActiveSection] = React.useState('')
     const [isScrolled, setIsScrolled] = React.useState(false)
 
     React.useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50)
+        const handleScrollBg = () => {
+            setIsScrolled(window.scrollY > 600)
         }
+        window.addEventListener('scroll', handleScrollBg)
+        handleScrollBg()
+        return () => window.removeEventListener('scroll', handleScrollBg)
+    }, [])
+
+    React.useEffect(() => {
+        const handleScroll = () => {
+            const sections = menuItems.map(item => item.href.replace('#', ''))
+            const scrollPosition = window.scrollY + 150
+
+            for (const section of sections) {
+                const element = document.getElementById(section)
+                if (element) {
+                    const { offsetTop, offsetHeight } = element
+                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                        setActiveSection(section)
+                        break
+                    }
+                }
+            }
+        }
+
         window.addEventListener('scroll', handleScroll)
+        handleScroll()
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
+
+    const scrollToSection = (href: string) => {
+        const element = document.querySelector(href)
+        if (element) {
+            const headerOffset = 100
+            const elementPosition = element.getBoundingClientRect().top
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            })
+        }
+    }
+
     return (
-        <header className="bg-[#0F2344] relative overflow-hidden">
-            {/* Grid Lines Pattern for Header - Same as Hero */}
-            <div 
-                className="absolute inset-0 opacity-30 pointer-events-none"
-                style={{
-                    backgroundImage: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.3) 0px, rgba(255,255,255,0.3) 1px, transparent 1px, transparent 120px)'
-                }}
-            />
-            <nav
-                data-state={menuState && 'active'}
-                className="sticky top-0 z-20 w-full relative">
-                <div className={cn('mx-auto max-w-6xl px-6 py-4 transition-all duration-300 lg:px-12 relative z-10', isScrolled && 'bg-[#0F2344]/95 max-w-4xl rounded-2xl border border-white/10 backdrop-blur-lg lg:px-5')}>
-                    <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-3">
-                        <div className="flex w-full justify-between lg:w-auto">
-                            <Link
-                                href="/"
-                                aria-label="home"
-                                className="flex items-center space-x-2">
-                                <Logo className="[&_span]:!text-white [&_span]:!bg-none" />
-                            </Link>
-
-                            <button
-                                onClick={() => setMenuState(!menuState)}
-                                aria-label={menuState == true ? 'Close Menu' : 'Open Menu'}
-                                className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 text-white lg:hidden">
-                                <Menu className="in-data-[state=active]:rotate-180 in-data-[state=active]:scale-0 in-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                                <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
-                            </button>
+        <motion.header
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed top-0 left-0 right-0 lg:top-4 lg:left-1/2 lg:-translate-x-1/2 z-50 w-full lg:w-[calc(100%-32px)] lg:max-w-4xl 2xl:max-w-5xl"
+        >
+            <nav className={`px-6 py-3 lg:rounded-full lg:px-4 lg:py-2 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md border-b lg:border border-gray-200/50 shadow-lg' : 'bg-white/95 backdrop-blur-md shadow-md lg:bg-transparent lg:shadow-none lg:backdrop-blur-none'}`}>
+                <div className="flex items-center justify-between">
+                    {/* Left - Logo */}
+                    <Link href="/" className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-[#003459] rounded-md flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">P</span>
                         </div>
+                        <span className={`font-semibold 2xl:text-lg transition-colors duration-300 ${isScrolled ? 'text-gray-900' : 'text-gray-900 lg:text-white'}`}>Praband</span>
+                    </Link>
 
-                        <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-                            <ul className="flex gap-8 text-sm">
-                                {menuItems.map((item, index) => (
-                                    <li key={index}>
-                                        <a
-                                            href={item.href}
-                                            onClick={(e) => {
-                                                e.preventDefault()
-                                                const element = document.querySelector(item.href)
-                                                if (element) {
-                                                    const headerOffset = 100
-                                                    const elementPosition = element.getBoundingClientRect().top
-                                                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-                                                    window.scrollTo({
-                                                        top: offsetPosition,
-                                                        behavior: 'smooth'
-                                                    })
-                                                }
-                                            }}
-                                            className="text-white/80 hover:text-white block duration-150 cursor-pointer">
-                                            <span>{item.name}</span>
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
+                    {/* Center - Navigation pills (desktop) */}
+                    <div className={`hidden lg:flex items-center rounded-full px-1 py-1 transition-colors duration-300 ${isScrolled ? 'bg-gray-100' : 'bg-white/10'}`}>
+                        {menuItems.map((item) => {
+                            const isActive = activeSection === item.href.replace('#', '')
+                            return (
+                                <a
+                                    key={item.name}
+                                    href={item.href}
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        scrollToSection(item.href)
+                                    }}
+                                    className={`relative px-3 py-1.5 2xl:px-4 2xl:py-2 text-sm 2xl:text-base font-medium rounded-full transition-all duration-200 ${
+                                        isActive
+                                            ? isScrolled ? 'text-gray-900 bg-white shadow-sm' : 'text-white bg-white/20 shadow-sm'
+                                            : isScrolled ? 'text-gray-600 hover:text-gray-900' : 'text-white/80 hover:text-white'
+                                    }`}
+                                >
+                                    {item.name}
+                                    {isActive && (
+                                        <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#00171f] rounded-full" />
+                                    )}
+                                </a>
+                            )
+                        })}
+                    </div>
 
-                        <div className="bg-[#0F2344] border-white/20 in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-black/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-                            <div className="lg:hidden">
-                                <ul className="space-y-6 text-base">
-                                    {menuItems.map((item, index) => (
-                                        <li key={index}>
-                                            <a
-                                                href={item.href}
-                                                onClick={(e) => {
-                                                    e.preventDefault()
-                                                    setMenuState(false)
-                                                    const element = document.querySelector(item.href)
-                                                    if (element) {
-                                                        const headerOffset = 100
-                                                        const elementPosition = element.getBoundingClientRect().top
-                                                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-                                                        window.scrollTo({
-                                                            top: offsetPosition,
-                                                            behavior: 'smooth'
-                                                        })
-                                                    }
-                                                }}
-                                                className="text-white/80 hover:text-white block duration-150 cursor-pointer">
-                                                <span>{item.name}</span>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
-                                <Button
-                                    asChild
-                                    size="sm">
+                    {/* Right - CTA button (desktop) */}
+                    <motion.a
+                        href="#contact"
+                        onClick={(e) => {
+                            e.preventDefault()
+                            scrollToSection('#contact')
+                        }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="hidden lg:block bg-[#007ea7] text-white text-sm 2xl:text-base font-medium px-4 py-2 2xl:px-6 2xl:py-2.5 rounded-full hover:bg-[#003459] transition-colors"
+                    >
+                        Contact Us
+                    </motion.a>
+
+                    {/* Mobile menu button */}
+                    <button
+                        onClick={() => setMenuState(!menuState)}
+                        aria-label={menuState ? 'Close Menu' : 'Open Menu'}
+                        className={`lg:hidden p-2 transition-colors duration-300 ${isScrolled ? 'text-gray-600' : 'text-gray-600'}`}
+                    >
+                        {menuState ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                    </button>
+                </div>
+
+                {/* Mobile menu */}
+                {menuState && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="lg:hidden mt-4 pb-4"
+                    >
+                        <div className="flex flex-col gap-2">
+                            {menuItems.map((item) => {
+                                const isActive = activeSection === item.href.replace('#', '')
+                                return (
                                     <a
-                                        href="#contact"
+                                        key={item.name}
+                                        href={item.href}
                                         onClick={(e) => {
                                             e.preventDefault()
                                             setMenuState(false)
-                                            const element = document.querySelector('#contact')
-                                            if (element) {
-                                                const headerOffset = 100
-                                                const elementPosition = element.getBoundingClientRect().top
-                                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-                                                window.scrollTo({
-                                                    top: offsetPosition,
-                                                    behavior: 'smooth'
-                                                })
-                                            }
-                                        }}>
-                                        <span>Contact Us</span>
+                                            scrollToSection(item.href)
+                                        }}
+                                        className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
+                                            isActive
+                                                ? 'text-gray-900 bg-gray-100'
+                                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                        }`}
+                                    >
+                                        {item.name}
                                     </a>
-                                </Button>
-                            </div>
+                                )
+                            })}
+                            <a
+                                href="#contact"
+                                onClick={(e) => {
+                                    e.preventDefault()
+                                    setMenuState(false)
+                                    scrollToSection('#contact')
+                                }}
+                                className="mt-2 bg-[#007ea7] text-white text-sm font-medium px-4 py-2 rounded-full text-center hover:bg-[#003459] transition-colors"
+                            >
+                                Contact Us
+                            </a>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
+                )}
             </nav>
-        </header>
+        </motion.header>
     )
 }
