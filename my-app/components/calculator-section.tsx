@@ -209,7 +209,7 @@ export default function CalculatorSection() {
                                     transition={{ duration: 0.4, delay: 0.1 }}
                                     className="text-xl font-semibold text-white"
                                 >
-                                    That&apos;s Rs. {calculations.monthlyCost.toLocaleString(&apos;en-IN&apos;)}/month in time costs.
+                                    That&apos;s Rs. {calculations.monthlyCost.toLocaleString('en-IN')}/month in time costs.
                                 </motion.p>
                             </div>
                         </motion.div>
