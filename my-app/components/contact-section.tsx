@@ -65,7 +65,7 @@ const ContactSection = () => {
               <h2 className="text-[32px] md:text-[48px] 2xl:text-[60px] leading-[1.1] font-bold text-white mt-4 mb-8">
                 Let&apos;s transform<br />
                 your institute{' '}
-                <span className="text-[#007ea7] italic">together</span>
+                <span className="text-[#007ea7]">together</span>
               </h2>
 
               <div className="space-y-4">
