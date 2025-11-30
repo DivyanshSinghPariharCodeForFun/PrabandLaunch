@@ -5,13 +5,16 @@ import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 export default function HeroScrollDemo() {
   return (
-    <div className="flex flex-col overflow-hidden bg-gradient-to-b from-white to-gray-50 -mt-20">
+    <section id="your-institution" className="flex flex-col overflow-hidden bg-gradient-to-b from-white to-gray-50 pt-20 md:pt-32">
       <ContainerScroll
         titleComponent={
           <>
             <h1 className="text-4xl font-semibold text-black dark:text-white">
+              <span className="text-black">
+
               Everything you need to manage <br />
-              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none">
+              </span>
+              <span className="text-4xl md:text-[6rem] font-bold mt-1 leading-none text-black">
                 Your Institution
               </span>
             </h1>
@@ -27,7 +30,7 @@ export default function HeroScrollDemo() {
           draggable={false}
         />
       </ContainerScroll>
-    </div>
+    </section>
   );
 }
 

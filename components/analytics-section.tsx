@@ -255,6 +255,19 @@ export default function AnalyticsSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <motion.button 
+            onClick={(e) => {
+              e.preventDefault();
+              const contactSection = document.querySelector("#contact");
+              if (contactSection) {
+                const offset = 100;
+                const elementPosition = contactSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                window.scrollTo({
+                  top: offsetPosition,
+                  behavior: "smooth",
+                });
+              }
+            }}
             className="inline-flex items-center gap-2 px-8 py-4 bg-[#00a7e1] text-white rounded-full font-medium hover:bg-[#007ea7] transition-colors shadow-lg hover:shadow-xl"
             whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(0,167,225,0.3)" }}
             whileTap={{ scale: 0.95 }}

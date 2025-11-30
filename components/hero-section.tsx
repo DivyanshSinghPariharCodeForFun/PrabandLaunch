@@ -107,6 +107,19 @@ export default function HeroSection() {
               
               {/* Get Started Button */}
               <motion.button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  const contactSection = document.querySelector("#contact");
+                  if (contactSection) {
+                    const offset = 100;
+                    const elementPosition = contactSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
                 className="px-8 py-4 bg-[#00a7e1] text-white text-base font-medium hover:bg-[#007ea7] transition-all duration-200 flex-shrink-0 rounded-r-full"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

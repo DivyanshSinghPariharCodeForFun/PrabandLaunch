@@ -6,12 +6,29 @@ import { motion } from "framer-motion";
 import { scrollReveal, staggerContainer, slideUp } from "@/lib/animations";
 
 export default function Footer() {
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        const offset = 100;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
   return (
     <footer className="bg-[#00171f] text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 gap-12"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -26,6 +43,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#home"
+                  onClick={(e) => handleSmoothScroll(e, "#home")}
                   className="text-sm text-gray-300 hover:text-[#00a7e1] transition-colors"
                 >
                   Home
@@ -34,6 +52,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="#features"
+                  onClick={(e) => handleSmoothScroll(e, "#features")}
                   className="text-sm text-gray-300 hover:text-[#00a7e1] transition-colors"
                 >
                   Features
@@ -41,18 +60,20 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="#about"
+                  href="#security"
+                  onClick={(e) => handleSmoothScroll(e, "#security")}
                   className="text-sm text-gray-300 hover:text-[#00a7e1] transition-colors"
                 >
-                  About
+                  Security
                 </Link>
               </li>
               <li>
                 <Link
-                  href="#pricing"
+                  href="#faq"
+                  onClick={(e) => handleSmoothScroll(e, "#faq")}
                   className="text-sm text-gray-300 hover:text-[#00a7e1] transition-colors"
                 >
-                  Pricing
+                  FAQs
                 </Link>
               </li>
             </ul>
@@ -61,6 +82,7 @@ export default function Footer() {
           {/* Contact Us Column */}
           <motion.div
             variants={slideUp}
+            className="md:justify-self-end"
           >
             <h3 className="text-white font-bold mb-4">Contact Us</h3>
             <ul className="space-y-3">
@@ -74,32 +96,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-[#00a7e1] mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-300">contact@prabhand.in</span>
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* Legal Column */}
-          <motion.div
-            variants={slideUp}
-          >
-            <h3 className="text-white font-bold mb-4">Legal</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="#privacy"
-                  className="text-sm text-gray-300 hover:text-[#00a7e1] transition-colors"
-                >
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="#terms"
-                  className="text-sm text-gray-300 hover:text-[#00a7e1] transition-colors"
-                >
-                  Terms Of Service
-                </Link>
+                <span className="text-sm text-gray-300">contact@Praband.in</span>
               </li>
             </ul>
           </motion.div>

@@ -79,25 +79,25 @@ export default function ProductivitySection() {
   };
 
   return (
-    <section id="features" className="bg-white py-24 px-4 sm:px-6 lg:px-8 font-sans text-slate-900 scroll-mt-20">
+    <section id="features" className="bg-white py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 font-sans text-slate-900 scroll-mt-20">
       <div className="max-w-[1200px] mx-auto">
         {/* Header Section */}
         <motion.div 
-          className="flex flex-col items-center text-center mb-16"
+          className="flex flex-col items-center text-center mb-8 sm:mb-12 lg:mb-16"
           {...scrollReveal}
         >
           <motion.div 
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-200 bg-white shadow-sm mb-6"
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-gray-200 bg-white shadow-sm mb-4 sm:mb-6"
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
           >
-            <Zap className="w-4 h-4 text-slate-600" fill="currentColor" fillOpacity={0.2} />
-            <span className="text-sm font-medium text-slate-700">Education Management Features</span>
+            <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-600" fill="currentColor" fillOpacity={0.2} />
+            <span className="text-xs sm:text-sm font-medium text-slate-700">Education Management Features</span>
           </motion.div>
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-slate-900"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3 sm:mb-4 text-slate-900 px-2"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -108,7 +108,7 @@ export default function ProductivitySection() {
             Needs in One Place
           </motion.h2>
           <motion.p 
-            className="text-lg text-slate-500 max-w-2xl"
+            className="text-sm sm:text-base lg:text-lg text-slate-500 max-w-2xl px-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -121,7 +121,7 @@ export default function ProductivitySection() {
 
         {/* Bento Grid */}
         <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-fr"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -130,24 +130,24 @@ export default function ProductivitySection() {
           
           {/* LEFT COLUMN - Tall Card */}
           <motion.div 
-            className="lg:row-span-2 bg-gray-50 rounded-3xl p-6 lg:p-8 border border-gray-100 flex flex-col"
+            className="lg:row-span-2 bg-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-100 flex flex-col"
             variants={slideUp}
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
-            <div className="mb-6">
-              <h3 className="text-xl font-bold mb-2">Manage courses effortlessly.</h3>
-              <p className="text-slate-500 text-sm">
+            <div className="mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-2">Manage courses effortlessly.</h3>
+              <p className="text-slate-500 text-xs sm:text-sm">
                 Track courses, students, exams, and assignments in one unified dashboard.
               </p>
             </div>
 
             {/* Mock Table UI */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex-1 flex flex-col">
+            <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border border-gray-100 overflow-hidden flex-1 flex flex-col">
               {/* Group: Active Courses */}
-              <div className="p-3 border-b border-gray-50">
-                <div className="flex justify-between items-center mb-3 px-1">
-                  <span className="text-xs font-bold text-slate-800">Active Courses</span>
-                  <span className="text-[10px] text-slate-400 font-medium">Students ↕</span>
+              <div className="p-2 sm:p-3 border-b border-gray-50">
+                <div className="flex justify-between items-center mb-2 sm:mb-3 px-0.5 sm:px-1">
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-800">Active Courses</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium">Students ↕</span>
                 </div>
                 <div className="space-y-1">
                   <TaskRow checked text="Mathematics Grade 10" badge="45 Students" badgeColor="bg-[#00a7e1]/20 text-[#00a7e1]" />
@@ -157,10 +157,10 @@ export default function ProductivitySection() {
               </div>
 
               {/* Group: Upcoming Exams */}
-              <div className="p-3 border-b border-gray-50">
-                <div className="flex justify-between items-center mb-3 px-1">
-                  <span className="text-xs font-bold text-slate-800">Upcoming Exams</span>
-                  <span className="text-[10px] text-slate-400 font-medium">Date ↕</span>
+              <div className="p-2 sm:p-3 border-b border-gray-50">
+                <div className="flex justify-between items-center mb-2 sm:mb-3 px-0.5 sm:px-1">
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-800">Upcoming Exams</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium">Date ↕</span>
                 </div>
                 <div className="space-y-1">
                   <TaskRow text="Math Final Exam" avatar="https://i.pravatar.cc/150?u=1" name="Prof. Singh" />
@@ -170,10 +170,10 @@ export default function ProductivitySection() {
               </div>
 
               {/* Group: Assignments */}
-              <div className="p-3">
-                <div className="flex justify-between items-center mb-3 px-1">
-                  <span className="text-xs font-bold text-slate-800">Assignments</span>
-                  <span className="text-[10px] text-slate-400 font-medium">Progress ↕</span>
+              <div className="p-2 sm:p-3">
+                <div className="flex justify-between items-center mb-2 sm:mb-3 px-0.5 sm:px-1">
+                  <span className="text-[10px] sm:text-xs font-bold text-slate-800">Assignments</span>
+                  <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium">Progress ↕</span>
                 </div>
                 <div className="space-y-1">
                   <TaskRow text="Algebra Problem Set" progress={75} />
@@ -186,13 +186,13 @@ export default function ProductivitySection() {
 
           {/* MIDDLE TOP - Real-time Collaboration */}
           <motion.div 
-            className="bg-gray-50 rounded-3xl p-6 border border-gray-100 relative overflow-hidden flex flex-col"
+            className="bg-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-gray-100 relative overflow-hidden flex flex-col"
             variants={slideUp}
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
-            <div className="mb-6 relative z-10">
-              <h3 className="text-xl font-bold mb-2">Real-time notifications.</h3>
-              <p className="text-slate-500 text-sm">
+            <div className="mb-2 relative z-10">
+              <h3 className="text-lg sm:text-xl font-bold mb-2">Real-time notifications.</h3>
+              <p className="text-slate-500 text-xs sm:text-sm">
                 Stay updated with student enrollments, exam alerts, and class reminders.
               </p>
             </div>
@@ -202,42 +202,42 @@ export default function ProductivitySection() {
                  style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
 
             {/* Mock UI Element */}
-            <div className="relative z-10 mt-auto flex flex-col gap-3">
+            <div className="relative z-10 mt-2 flex flex-col gap-2 sm:gap-3">
               {/* Notification Toast */}
-              <div className="bg-white p-3 rounded-xl shadow-sm border border-gray-100 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                  <Bell size={14} />
+              <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-sm border border-gray-100 flex items-center gap-2 sm:gap-3">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 flex-shrink-0">
+                  <Bell size={12} className="sm:w-[14px] sm:h-[14px]" />
                 </div>
-                <div className="flex-1 text-xs">
+                <div className="flex-1 text-[10px] sm:text-xs min-w-0">
                   <span className="font-bold text-slate-800">Priya Sharma</span> <span className="text-slate-500">enrolled in Physics Grade 11</span>
                 </div>
-                <MoreHorizontal size={14} className="text-slate-400" />
+                <MoreHorizontal size={12} className="sm:w-[14px] sm:h-[14px] text-slate-400 flex-shrink-0" />
               </div>
 
               {/* Enrollment Card */}
-              <div className="bg-white p-3 rounded-xl shadow-sm border border-gray-100">
-                <div className="flex justify-between items-center mb-2 border-b border-gray-50 pb-2">
-                  <span className="text-xs font-semibold text-slate-800">Mathematics Grade 10</span>
-                  <ChevronDown size={12} className="text-slate-400" />
+              <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl shadow-sm border border-gray-100">
+                <div className="flex justify-between items-center mb-1.5 sm:mb-2 border-b border-gray-50 pb-1.5 sm:pb-2">
+                  <span className="text-[10px] sm:text-xs font-semibold text-slate-800 truncate">Mathematics Grade 10</span>
+                  <ChevronDown size={10} className="sm:w-3 sm:h-3 text-slate-400 flex-shrink-0" />
                 </div>
-                <div className="flex justify-between text-[10px] text-slate-400 mb-1 px-1">
+                <div className="flex justify-between text-[9px] sm:text-[10px] text-slate-400 mb-1 px-0.5 sm:px-1">
                    <span>Student Name</span>
-                   <div className="flex gap-8">
+                   <div className="flex gap-4 sm:gap-8">
                      <span>Teacher</span>
                      <span>Batch</span>
                    </div>
                 </div>
-                <div className="flex items-center justify-between bg-slate-50 rounded-lg p-2">
-                   <span className="text-xs font-medium text-slate-700">Rahul Kumar</span>
-                   <div className="flex items-center gap-6">
-                      <div className="flex items-center gap-1">
-                        <img src="https://i.pravatar.cc/150?u=4" alt="Prof. Singh" className="w-4 h-4 rounded-full" />
-                        <span className="text-[10px] text-slate-600">Prof. Singh</span>
+                <div className="flex items-center justify-between bg-slate-50 rounded-md sm:rounded-lg p-1.5 sm:p-2">
+                   <span className="text-[10px] sm:text-xs font-medium text-slate-700 truncate">Rahul Kumar</span>
+                   <div className="flex items-center gap-3 sm:gap-6 flex-shrink-0">
+                      <div className="flex items-center gap-0.5 sm:gap-1">
+                        <img src="https://i.pravatar.cc/150?u=4" alt="Prof. Singh" className="w-3 h-3 sm:w-4 sm:h-4 rounded-full" />
+                        <span className="text-[9px] sm:text-[10px] text-slate-600 hidden sm:inline">Prof. Singh</span>
                       </div>
-                      <div className="flex items-center gap-1 relative">
-                        <span className="text-[10px] font-medium text-slate-600 px-2 py-0.5 bg-[#00a7e1]/20 text-[#00a7e1] rounded-full">Morning</span>
+                      <div className="flex items-center gap-0.5 sm:gap-1 relative">
+                        <span className="text-[9px] sm:text-[10px] font-medium text-slate-600 px-1.5 sm:px-2 py-0.5 bg-[#00a7e1]/20 text-[#00a7e1] rounded-full">Morning</span>
                         {/* Cursor Overlay */}
-                        <div className="absolute -bottom-4 -right-2 flex flex-col items-center z-20">
+                        <div className="absolute -bottom-3 sm:-bottom-4 -right-1 sm:-right-2 flex flex-col items-center z-20 hidden sm:flex">
                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#3b82f6" className="transform -rotate-12 translate-y-1">
                              <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="white" strokeWidth="2"/>
                            </svg>
@@ -254,57 +254,57 @@ export default function ProductivitySection() {
 
           {/* RIGHT TOP - Student Progress Tracking */}
           <motion.div 
-            className="bg-gray-50 rounded-3xl p-6 border border-gray-100 flex flex-col"
+            className="bg-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 border border-gray-100 flex flex-col"
             variants={slideUp}
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
              <div className="mb-4">
-              <h3 className="text-xl font-bold mb-2">Track student performance.</h3>
-              <p className="text-slate-500 text-sm">
+              <h3 className="text-lg sm:text-xl font-bold mb-2">Track student performance.</h3>
+              <p className="text-slate-500 text-xs sm:text-sm">
                 Monitor progress, grades, and attendance in real-time.
               </p>
             </div>
             
              {/* Mock Student Card */}
-             <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex-1 flex flex-col justify-center relative">
-                <div className="flex justify-between items-start mb-3">
-                   <div className="flex items-center gap-2">
-                      <img src="https://i.pravatar.cc/150?u=1" className="w-8 h-8 rounded-full" />
-                      <div>
-                        <div className="text-xs font-bold text-slate-800">Ananya Verma</div>
-                        <div className="text-[10px] text-slate-400">Grade 10 - Science</div>
+             <div className="bg-white p-3 sm:p-4 rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 flex-1 flex flex-col justify-center relative">
+                <div className="flex justify-between items-start mb-2 sm:mb-3">
+                   <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                      <img src="https://i.pravatar.cc/150?u=1" className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex-shrink-0" />
+                      <div className="min-w-0">
+                        <div className="text-[10px] sm:text-xs font-bold text-slate-800 truncate">Ananya Verma</div>
+                        <div className="text-[9px] sm:text-[10px] text-slate-400">Grade 10 - Science</div>
                       </div>
                    </div>
-                   <MoreHorizontal size={14} className="text-slate-300" />
+                   <MoreHorizontal size={12} className="sm:w-[14px] sm:h-[14px] text-slate-300 flex-shrink-0" />
                 </div>
                 
-                <div className="flex justify-between items-center mb-1">
-                  <h4 className="text-sm font-bold text-slate-800">Mathematics Assignment</h4>
-                  <span className="px-1.5 py-0.5 rounded-full bg-green-100 text-green-600 text-[9px] font-bold">● Excellent</span>
+                <div className="flex justify-between items-center mb-1 gap-2">
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-800 truncate">Mathematics Assignment</h4>
+                  <span className="px-1 sm:px-1.5 py-0.5 rounded-full bg-green-100 text-green-600 text-[8px] sm:text-[9px] font-bold whitespace-nowrap flex-shrink-0">● Excellent</span>
                 </div>
                 
-                <div className="flex items-center gap-2 text-[10px] text-slate-400 mb-4">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] text-slate-400 mb-3 sm:mb-4">
                    <span>📊 Score</span>
                    <span className="text-slate-600 font-medium">92/100</span>
-                   <div className="flex-1 h-1.5 bg-gray-100 rounded-full ml-2 relative overflow-hidden">
+                   <div className="flex-1 h-1 sm:h-1.5 bg-gray-100 rounded-full ml-1 sm:ml-2 relative overflow-hidden">
                       <div className="absolute left-0 top-0 h-full bg-green-500 w-[92%] rounded-full"></div>
                    </div>
                    <span>92%</span>
                 </div>
 
-                <button className="w-full bg-slate-800 text-white text-xs font-medium py-2 rounded-lg hover:bg-slate-700 transition-colors">
+                <button className="w-full bg-slate-800 text-white text-[10px] sm:text-xs font-medium py-1.5 sm:py-2 rounded-md sm:rounded-lg hover:bg-slate-700 transition-colors">
                   View Details
                 </button>
 
                  {/* Faded bottom cards for stack effect */}
-                 <div className="absolute -bottom-2 left-4 right-4 h-4 bg-white border border-gray-200 rounded-b-xl -z-10 shadow-sm"></div>
-                 <div className="absolute -bottom-4 left-8 right-8 h-4 bg-white border border-gray-200 rounded-b-xl -z-20 shadow-sm"></div>
+                 <div className="absolute -bottom-2 left-3 sm:left-4 right-3 sm:right-4 h-3 sm:h-4 bg-white border border-gray-200 rounded-b-lg sm:rounded-b-xl -z-10 shadow-sm"></div>
+                 <div className="absolute -bottom-4 left-6 sm:left-8 right-6 sm:right-8 h-3 sm:h-4 bg-white border border-gray-200 rounded-b-lg sm:rounded-b-xl -z-20 shadow-sm"></div>
              </div>
           </motion.div>
 
           {/* BOTTOM WIDE - AI-Powered Course Management */}
           <motion.div 
-            className="lg:col-span-2 bg-gray-50 rounded-3xl p-6 lg:p-8 border border-gray-100 relative overflow-hidden"
+            className="lg:col-span-2 bg-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-100 relative overflow-hidden"
             variants={slideUp}
             whileHover={{ y: -5, transition: { duration: 0.2 } }}
           >
@@ -316,16 +316,16 @@ export default function ProductivitySection() {
                  }}>
              </div>
 
-             <div className="relative z-10 mb-8">
-              <h3 className="text-xl font-bold mb-2">AI-Powered Question Generation</h3>
-              <p className="text-slate-500 text-sm">
+             <div className="relative z-10 mb-4 sm:mb-8">
+              <h3 className="text-lg sm:text-xl font-bold mb-2">AI-Powered Question Generation</h3>
+              <p className="text-slate-500 text-xs sm:text-sm">
                 Let AI generate custom exam questions based on subject, topic, and difficulty level.
               </p>
             </div>
 
             {/* Flowchart Container */}
             <div 
-              className="flowchart-container relative z-10 h-[240px] w-full flex items-center pl-4 cursor-default"
+              className="flowchart-container relative z-10 h-[200px] sm:h-[240px] w-full flex items-center pl-2 sm:pl-4 cursor-default overflow-x-auto"
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
@@ -370,22 +370,22 @@ export default function ProductivitySection() {
                  style={{ left: `${nodePositions.root.x}px`, top: `${nodePositions.root.y}px` }}
                  onMouseDown={(e) => handleMouseDown('root', e)}
                >
-                   <div className="bg-white px-4 py-3 rounded-xl shadow-lg hover:shadow-xl border border-gray-100 transition-shadow">
-                      <div className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-100">
-                        <Move className="w-3 h-3 text-gray-400" />
-                        <div className="w-2 h-2 bg-[#00a7e1] rounded-sm"></div>
-                        <span className="text-xs font-bold text-slate-800">Mathematics Exam</span>
+                   <div className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl border border-gray-100 transition-shadow min-w-[140px] sm:min-w-auto">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3 pb-1.5 sm:pb-2 border-b border-gray-100">
+                        <Move className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-gray-400" />
+                        <div className="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-[#00a7e1] rounded-sm"></div>
+                        <span className="text-[10px] sm:text-xs font-bold text-slate-800">Mathematics Exam</span>
                       </div>
                       
-                      <div className="text-[10px] text-slate-400 mb-3">
+                      <div className="text-[9px] sm:text-[10px] text-slate-400 mb-2 sm:mb-3">
                         📚 Subject <span className="text-slate-600 font-medium">Algebra</span>
                       </div>
                       
-                      <div className="flex items-center gap-2 pt-2 border-t border-gray-50">
-                          <img src="https://i.pravatar.cc/150?u=5" className="w-6 h-6 rounded-full border border-white" alt="Prof. Singh" />
+                      <div className="flex items-center gap-1.5 sm:gap-2 pt-1.5 sm:pt-2 border-t border-gray-50">
+                          <img src="https://i.pravatar.cc/150?u=5" className="w-5 sm:w-6 h-5 sm:h-6 rounded-full border border-white" alt="Prof. Singh" />
                           <div className="flex flex-col">
-                            <span className="text-[10px] font-bold leading-none">Prof. Singh</span>
-                            <span className="text-[8px] text-slate-400 leading-none">Math Teacher</span>
+                            <span className="text-[9px] sm:text-[10px] font-bold leading-none">Prof. Singh</span>
+                            <span className="text-[7px] sm:text-[8px] text-slate-400 leading-none">Math Teacher</span>
                           </div>
                       </div>
                    </div>
@@ -473,35 +473,35 @@ function TaskRow({
 }) {
   return (
     <motion.div 
-      className="flex items-center justify-between p-2 hover:bg-slate-50 rounded-lg group transition-colors cursor-default"
+      className="flex items-center justify-between p-1.5 sm:p-2 hover:bg-slate-50 rounded-md sm:rounded-lg group transition-colors cursor-default"
       whileHover={{ x: 4, transition: { duration: 0.2 } }}
     >
-      <div className="flex items-center gap-3">
-        <div className={`w-4 h-4 rounded border flex items-center justify-center ${checked ? 'bg-[#00a7e1] border-[#00a7e1]' : 'bg-gray-100 border-gray-200'}`}>
-          {checked && <Check size={10} className="text-white" />}
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+        <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border flex items-center justify-center flex-shrink-0 ${checked ? 'bg-[#00a7e1] border-[#00a7e1]' : 'bg-gray-100 border-gray-200'}`}>
+          {checked && <Check size={8} className="sm:w-[10px] sm:h-[10px] text-white" />}
         </div>
-        <span className="text-xs font-medium text-slate-700">{text}</span>
+        <span className="text-[10px] sm:text-xs font-medium text-slate-700 truncate">{text}</span>
       </div>
       
       {badge && (
-        <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${badgeColor}`}>
-          <span className="mr-1">●</span>{badge}
+        <span className={`text-[9px] sm:text-[10px] font-medium px-1.5 sm:px-2 py-0.5 rounded-full ${badgeColor} flex-shrink-0 ml-1`}>
+          <span className="mr-0.5 sm:mr-1">●</span>{badge}
         </span>
       )}
 
       {name && avatar && (
-        <div className="flex items-center gap-2">
-            <img src={avatar} alt={name} className="w-4 h-4 rounded-full" />
-            <span className="text-[10px] text-slate-500">{name}</span>
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 ml-1">
+            <img src={avatar} alt={name} className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full" />
+            <span className="text-[9px] sm:text-[10px] text-slate-500 hidden sm:inline">{name}</span>
         </div>
       )}
 
       {progress !== undefined && (
-        <div className="flex items-center gap-2 w-20">
-           <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+        <div className="flex items-center gap-1.5 sm:gap-2 w-16 sm:w-20 flex-shrink-0 ml-1">
+           <div className="flex-1 h-1 sm:h-1.5 bg-gray-100 rounded-full overflow-hidden">
                <div className="h-full bg-green-500 rounded-full" style={{ width: `${progress}%`}}></div>
            </div>
-           <span className="text-[9px] text-slate-500">{progress}%</span>
+           <span className="text-[8px] sm:text-[9px] text-slate-500">{progress}%</span>
         </div>
       )}
     </motion.div>
@@ -530,21 +530,21 @@ function AINode({ icon, title, suggestion, color }: { icon: React.ReactNode, tit
 function DraggableAINode({ icon, title, suggestion, color }: { icon: React.ReactNode, title: string, suggestion: string, color: string }) {
     return (
         <motion.div 
-          className="bg-white p-2.5 rounded-xl shadow-sm border border-gray-100 w-48 hover:shadow-md transition-shadow"
+          className="bg-white p-2 sm:p-2.5 rounded-lg sm:rounded-xl shadow-sm border border-gray-100 w-40 sm:w-48 hover:shadow-md transition-shadow"
           whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
           whileTap={{ scale: 0.95 }}
         >
-            <div className="flex items-center gap-2 mb-2">
-                <Move className="w-3 h-3 text-gray-400 flex-shrink-0" />
-                <div className={`p-1 rounded-md ${color.split(' ')[0]}`}>
+            <div className="flex items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
+                <Move className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-gray-400 flex-shrink-0" />
+                <div className={`p-0.5 sm:p-1 rounded-md ${color.split(' ')[0]}`}>
                     {icon}
                 </div>
-                <span className="text-[10px] font-bold text-slate-800">{title}</span>
+                <span className="text-[9px] sm:text-[10px] font-bold text-slate-800">{title}</span>
             </div>
-            <div className="flex items-center gap-1 bg-slate-50 p-1.5 rounded-lg border border-slate-100">
-                <Sparkles size={10} className="text-purple-500" />
-                <span className="text-[9px] text-slate-500">
-                    <span className={`font-bold px-1 py-0.5 rounded ${color}`}>{suggestion}</span> by AI based on curriculum.
+            <div className="flex items-center gap-1 bg-slate-50 p-1 sm:p-1.5 rounded-md sm:rounded-lg border border-slate-100">
+                <Sparkles size={8} className="sm:w-[10px] sm:h-[10px] text-purple-500" />
+                <span className="text-[8px] sm:text-[9px] text-slate-500">
+                    <span className={`font-bold px-0.5 sm:px-1 py-0.5 rounded ${color}`}>{suggestion}</span> by AI based on curriculum.
                 </span>
             </div>
         </motion.div>

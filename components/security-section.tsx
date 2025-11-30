@@ -115,19 +115,19 @@ export default function SecuritySection() {
               
               <div className="space-y-3 pt-6 border-t border-[#003459]/50">
                 <div className="flex items-center gap-3 text-sm text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-[#00a7e1] flex-shrink-0" />
                   <span>Dedicated data isolation</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-gray-300">
-                  <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-[#00a7e1] flex-shrink-0" />
                   <span>Continuous monitoring</span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Feature Cards */}
-          {securityFeatures.map((feature, index) => (
+          {/* First Two Feature Cards */}
+          {securityFeatures.slice(0, 2).map((feature, index) => (
             <motion.div
               key={index}
               className={`bg-gradient-to-br ${feature.bgGradient} rounded-3xl p-6 border border-gray-200 flex flex-col shadow-sm hover:shadow-md transition-shadow`}
@@ -142,9 +142,22 @@ export default function SecuritySection() {
             </motion.div>
           ))}
 
-          {/* Bottom Message Card */}
+          {/* Continuous Monitoring & Compliance Card */}
           <motion.div
-            className="lg:col-span-3 bg-gradient-to-r from-[#00a7e1]/10 via-[#007ea7]/10 to-[#00a7e1]/10 rounded-3xl p-6 border border-[#00a7e1]/30 flex items-center gap-6 shadow-sm"
+            className={`bg-gradient-to-br ${securityFeatures[2].bgGradient} rounded-3xl p-6 border border-gray-200 flex flex-col shadow-sm hover:shadow-md transition-shadow`}
+            variants={slideUp}
+            whileHover={{ y: -5, scale: 1.02, transition: { duration: 0.2 } }}
+          >
+            <div className={`w-12 h-12 rounded-xl ${securityFeatures[2].color} flex items-center justify-center mb-4`}>
+              {securityFeatures[2].icon}
+            </div>
+            <h4 className="text-lg font-bold text-slate-900 mb-2 leading-tight">{securityFeatures[2].title}</h4>
+            <p className="text-sm text-slate-600 leading-relaxed">{securityFeatures[2].description}</p>
+          </motion.div>
+
+          {/* Secure & Private by Design Card - Next to Continuous Monitoring */}
+          <motion.div
+            className="bg-gradient-to-r from-[#00a7e1]/10 via-[#007ea7]/10 to-[#00a7e1]/10 rounded-3xl p-6 border border-[#00a7e1]/30 flex items-center gap-6 shadow-sm hover:shadow-md transition-shadow"
             variants={slideUp}
             whileHover={{ y: -3, transition: { duration: 0.2 } }}
           >

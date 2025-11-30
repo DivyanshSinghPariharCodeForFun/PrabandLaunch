@@ -141,7 +141,7 @@ export default function InstitutionsSection() {
               >
                 Built for real classroom<br />
                 Across every type of<br />
-                <span className="text-teal-600">Educational Institution</span>
+                <span className="text-[#007ea7]">Educational Institution</span>
               </motion.h2>
 
               {/* Accordion List */}

@@ -7,20 +7,27 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { href: "#features", label: "Features" },
   { href: "#institutions", label: "Institutions" },
   { href: "#calculator", label: "Calculator" },
+  { href: "#features", label: "Features" },
+  { href: "#intelligent-features", label: "AI Features" },
   { href: "#role-features", label: "Benefits" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#analytics", label: "Analytics" },
+  { href: "#security", label: "Security" },
+  { href: "#faq", label: "FAQs" },
 ];
 
 // Map sections to their background type (dark or light)
 const sectionBackgrounds: Record<string, 'dark' | 'light'> = {
   'home': 'dark',
-  'features': 'light',
+  'your-institution': 'light',
   'institutions': 'light',
   'calculator': 'light',
+  'features': 'light',
+  'intelligent-features': 'light',
   'role-features': 'light',
+  'analytics': 'light',
+  'security': 'light',
   'faq': 'light',
   'contact': 'dark',
 };
@@ -28,7 +35,7 @@ const sectionBackgrounds: Record<string, 'dark' | 'light'> = {
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("features");
+  const [activeSection, setActiveSection] = useState("institutions");
   const [upcomingSection, setUpcomingSection] = useState<'dark' | 'light'>('light');
 
   useEffect(() => {
@@ -51,8 +58,8 @@ export default function Navbar() {
       
       setIsScrolled(!inHeroSection);
 
-      // All sections including home and contact
-      const allSections = ['home', ...navItems.map((item) => item.href.substring(1)), 'contact'];
+      // All sections including home, your-institution, and contact
+      const allSections = ['home', 'your-institution', ...navItems.map((item) => item.href.substring(1)), 'contact'];
       const scrollPosition = scrollY + 150;
       const futureScrollPosition = scrollY + lookAheadDistance;
 
@@ -96,6 +103,12 @@ export default function Navbar() {
             }
           }
         }
+      }
+
+      // If we're in a light section (like your-institution), ensure light theme is used
+      const currentSectionElement = document.querySelector(`#${activeSection}`);
+      if (currentSectionElement && sectionBackgrounds[activeSection] === 'light') {
+        upcomingSectionType = 'light';
       }
 
       setUpcomingSection(upcomingSectionType);
@@ -149,20 +162,22 @@ export default function Navbar() {
   };
 
   // Determine if navbar should use light or dark theme based on upcoming section
-  const useDarkTheme = !isScrolled || upcomingSection === 'dark';
+  // Use dark theme only when in hero section with dark background, otherwise use light for visibility
+  // Also check if current section is light to ensure navbar is visible
+  const useDarkTheme = !isScrolled && upcomingSection === 'dark' && activeSection !== 'your-institution';
   
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 w-full lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:w-[calc(100%-32px)] lg:max-w-4xl 2xl:max-w-5xl transition-all duration-300 rounded-lg lg:rounded-full ${
+      className={`fixed top-0 left-0 right-0 z-50 w-full lg:top-4 lg:left-1/2 lg:-translate-x-1/2 lg:w-[calc(100%-32px)] lg:max-w-6xl 2xl:max-w-7xl transition-all duration-300 rounded-lg lg:rounded-full ${
         useDarkTheme
-          ? "bg-white/5 backdrop-blur-sm border-b lg:border border-white/10 shadow-none"
+          ? "bg-white/10 backdrop-blur-md border-b lg:border border-white/20 shadow-lg"
           : "bg-white/80 backdrop-blur-md border-b lg:border border-gray-200/50 shadow-lg"
       }`}
     >
-      <nav className="px-6 py-3 lg:rounded-full lg:px-4 lg:py-2">
+      <nav className="px-4 py-2.5 lg:rounded-full lg:px-3 lg:py-1.5">
         <div className="flex items-center justify-between">
           {/* Logo Section */}
           <Link
@@ -172,11 +187,11 @@ export default function Navbar() {
               if (window.location.pathname === "/") {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: "smooth" });
-                setActiveSection("features");
+                setActiveSection("institutions");
               }
             }}
           >
-            <div className="relative w-8 h-8 2xl:w-10 2xl:h-10">
+            <div className="relative w-7 h-7 lg:w-8 lg:h-8 2xl:w-9 2xl:h-9">
               <Image
                 src="/praband/logo.jpeg"
                 alt="Praband Logo"
@@ -186,7 +201,7 @@ export default function Navbar() {
               />
             </div>
             <span
-              className={`font-semibold 2xl:text-lg transition-colors duration-200 ${
+              className={`font-semibold text-sm lg:text-base 2xl:text-lg transition-colors duration-200 ${
                 useDarkTheme ? "text-white" : "text-gray-900"
               }`}
             >
@@ -196,7 +211,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div
-            className={`hidden lg:flex items-center gap-2 rounded-full px-2 py-1 transition-colors duration-200 ${
+            className={`hidden lg:flex items-center gap-1 rounded-full px-1.5 py-0.5 transition-colors duration-200 ${
               useDarkTheme ? "bg-white/10 backdrop-blur-sm" : "bg-gray-100"
             }`}
           >
@@ -207,7 +222,7 @@ export default function Navbar() {
                   key={item.href}
                   href={item.href}
                   onClick={(e) => handleSmoothScroll(e, item.href)}
-                  className={`relative px-3 py-1.5 2xl:px-4 2xl:py-2 text-sm 2xl:text-base font-medium rounded-full transition-all duration-200 ${
+                  className={`relative px-2.5 py-1.5 2xl:px-3 2xl:py-2 text-xs 2xl:text-sm font-medium rounded-full transition-all duration-200 whitespace-nowrap ${
                     isActive
                       ? useDarkTheme
                         ? "bg-white/20 text-white shadow-sm"
@@ -232,9 +247,9 @@ export default function Navbar() {
           {/* Desktop CTA Button */}
           <button
             onClick={handleContactClick}
-            className="hidden lg:block px-4 py-2 2xl:px-6 2xl:py-2.5 bg-[#00a7e1] hover:bg-[#007ea7] text-white font-medium rounded-full transition-all duration-200 hover:scale-105 active:scale-95"
+            className="hidden lg:block px-3 py-1.5 2xl:px-4 2xl:py-2 bg-[#00a7e1] hover:bg-[#007ea7] text-white text-xs 2xl:text-sm font-medium rounded-full transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap ml-2"
           >
-            Contact Us
+            Contact
           </button>
 
           {/* Mobile Menu Button */}

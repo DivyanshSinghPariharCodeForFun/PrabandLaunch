@@ -21,7 +21,7 @@ const notoSans = Noto_Sans({
 
 export const metadata: Metadata = {
   title: "Praband - Education Management Operating System",
-  description: "The all-in-one Education Management Operating System for tuition teachers, coaching institutes, training centers, and colleges. Replace scattered tools, WhatsApp groups, and Excel files with one unified platform.",
+  description: "The all-in-one Education Management System for tuition teachers, coaching institutes, training centers, and colleges. Replace scattered tools, WhatsApp groups, and Excel files with one unified platform.",
 };
 
 export default function RootLayout({

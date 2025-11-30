@@ -27,29 +27,29 @@ export default function FAQSection() {
     {
       id: 2,
       icon: <User className="w-5 h-5 text-white" />,
-      question: "Do I need technical skills to use Prabhand?",
-      answer: "No technical skills are required. Prabhand is designed to be intuitive and user-friendly, allowing teachers and administrators to manage all academic operations with ease.",
+      question: "Do I need technical skills to use Praband?",
+      answer: "No technical skills are required. Praband is designed to be intuitive and user-friendly, allowing teachers and administrators to manage all academic operations with ease.",
       iconBgColor: "bg-gray-100 border-gray-200",
     },
     {
       id: 3,
       icon: <Link className="w-5 h-5 text-white" />,
-      question: "Can Prabhand integrate with tools we already use?",
-      answer: "Yes, Prabhand offers seamless integration with popular educational tools and platforms, allowing you to bring all your academic activities into one unified system.",
+      question: "Can Praband integrate with tools we already use?",
+      answer: "Yes, Praband offers seamless integration with popular educational tools and platforms, allowing you to bring all your academic activities into one unified system.",
       iconBgColor: "bg-gray-100 border-gray-200",
     },
     {
       id: 4,
       icon: <Shield className="w-5 h-5 text-white" />,
-      question: "Is my data secure on Prabhand?",
+      question: "Is my data secure on Praband?",
       answer: "Absolutely. All academic records, materials, and student data are encrypted and protected with enterprise-grade security measures to ensure your information remains safe.",
       iconBgColor: "bg-gray-100 border-gray-200",
     },
     {
       id: 5,
       icon: <Clock className="w-5 h-5 text-white" />,
-      question: "Can I try Prabhand before committing?",
-      answer: "Yes, we offer a free trial period so you can explore all features and see how Prabhand can transform your institute's academic operations before making a commitment.",
+      question: "Can I try Praband before committing?",
+      answer: "Yes, we offer a free trial period so you can explore all features and see how Praband can transform your institute's academic operations before making a commitment.",
       iconBgColor: "bg-gray-100 border-gray-200",
     },
   ];
@@ -78,26 +78,9 @@ export default function FAQSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Frequently asked questions
+          Frequently Asked Questions
         </motion.h2>
 
-        {/* Intro paragraph */}
-        <motion.p 
-          className="text-base md:text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          Can&apos;t find the question you&apos;re looking for? Post on our{" "}
-          <a href="#" className="text-[#00a7e1] hover:text-[#007ea7] underline font-medium">
-            community forum
-          </a>{" "}
-          to receive help from our developer support team and the community or{" "}
-          <a href="#" className="text-[#00a7e1] hover:text-[#007ea7] underline font-medium">
-            contact an expert.
-          </a>
-        </motion.p>
 
         {/* FAQ Items */}
         <motion.div 

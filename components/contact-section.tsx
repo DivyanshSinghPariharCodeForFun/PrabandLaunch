@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send, Facebook, Instagram, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { scrollReveal, staggerContainer, slideUp, slideLeft, slideRight, scale } from "@/lib/animations";
 
@@ -157,8 +157,8 @@ export default function ContactSection() {
               </motion.div>
             </motion.div>
 
-            {/* Social Media Icons */}
-            <motion.div 
+            {/* Social Media Icons - Hidden for now */}
+            {/* <motion.div 
               className="flex items-center gap-6 pt-8"
               initial="hidden"
               whileInView="visible"
@@ -195,7 +195,7 @@ export default function ContactSection() {
               >
                 <Linkedin className="w-5 h-5 text-white" />
               </motion.a>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* Right Panel - Contact Form (White Card) */}
