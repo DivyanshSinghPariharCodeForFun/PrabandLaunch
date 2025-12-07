@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward the request to the external Slack API
-    const response = await fetch("http://109.123.252.133:3000/api/slack", {
+    const response = await fetch("https://slack-hook.praband.com/api/slack", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
