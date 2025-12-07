@@ -55,23 +55,31 @@ export default function HeroSection() {
     setSubmitStatus({ type: null, message: "" });
 
     try {
-      const response = await fetch("https://slack-hook.praband.com/api/slack", {
+      const response = await fetch("/api/slack", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text: {
-            email,
-            message: "This person wants to reach",
-            name: "",
-            inquiryType: ["demo"],
-          }
+          email,
+          message: "This person wants to reach",
+          name: "",
+          inquiryType: ["demo"],
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit");
+        // Try to get error message from response
+        let errorMessage = "Something went wrong. Please try again.";
+        try {
+          const errorData = await response.json();
+          if (errorData.error) {
+            errorMessage = errorData.error;
+          }
+        } catch {
+          // If response isn't JSON, use default message
+        }
+        throw new Error(errorMessage);
       }
 
       setSubmitStatus({
@@ -83,7 +91,7 @@ export default function HeroSection() {
       console.error("Submission error:", error);
       setSubmitStatus({
         type: "error",
-        message: "Something went wrong. Please try again.",
+        message: error instanceof Error ? error.message : "Something went wrong. Please try again.",
       });
     } finally {
       setIsSubmitting(false);

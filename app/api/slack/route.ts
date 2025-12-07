@@ -1,40 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  // 🔍 DEBUG: Add unique identifier to confirm this route is being hit
-  console.log("🔍 [ROUTE.TS] This Next.js route was called!");
-  console.log("🔍 [ROUTE.TS] Request URL:", request.url);
-  console.log("🔍 [ROUTE.TS] Request headers:", Object.fromEntries(request.headers.entries()));
-  
   try {
-    const textData = await request.json();
+    const formData = await request.json();
 
-    // Identify submission type
-    if (textData.email && !textData.phone) {
+    // Identify submission type and format message for Slack
+    let slackMessage: string;
+    
+    if (formData.email && !formData.phone) {
+      // Hero section email submission
       console.log("📧 Hero section email submission");
-    } else if (textData.email && textData.phone) {
+      slackMessage = `New Demo Request!\n\nEmail: ${formData.email}\nMessage: ${formData.message || "This person wants to reach"}\nInquiry Type: ${formData.inquiryType?.join(', ') || 'Demo'}`;
+    } else if (formData.email && formData.phone) {
+      // Contact form submission
       console.log("📝 Contact form submission");
+      slackMessage = `New Contact Form Submission!\n\nName: ${formData.name || 'N/A'}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nInstitute: ${formData.instituteName || 'N/A'}\nInquiry Types: ${formData.inquiryType?.join(', ') || 'N/A'}\nMessage: ${formData.message || 'N/A'}`;
+    } else {
+      // Generic submission
+      slackMessage = JSON.stringify(formData, null, 2);
     }
-
-    const body = {text: textData};
     
     // Log the incoming request
-    console.log("📥 Received submission:", JSON.stringify(body, null, 2));
+    console.log("📥 Received submission:", JSON.stringify(formData, null, 2));
 
-    // Forward the request to the external Slack API
+    // Forward the request to the external Slack API with properly formatted text
+    // Include the origin header so the Express API's origin validation passes
     const response = await fetch("https://slack-hook.praband.com/api/slack", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Origin": "https://praband.com",
+        "Referer": "https://praband.com/",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        text: slackMessage
+      }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error("❌ External API error:", errorText);
       return NextResponse.json(
-        { error: "Failed to send message to Slack", debug: "This error came from Next.js route.ts" },
+        { error: "Failed to send message to Slack" },
         { status: response.status }
       );
     }

@@ -81,21 +81,29 @@ export default function ContactSection() {
     }
 
     try {
-      const response = await fetch("https://slack-hook.praband.com/api/slack", {
+      const response = await fetch("/api/slack", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text: {
-            ...formData,
-            captchaToken,
-          }
+          ...formData,
+          captchaToken,
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        // Try to get error message from response
+        let errorMessage = "Something went wrong. Please try again later.";
+        try {
+          const errorData = await response.json();
+          if (errorData.error) {
+            errorMessage = errorData.error;
+          }
+        } catch {
+          // If response isn't JSON, use default message
+        }
+        throw new Error(errorMessage);
       }
 
       setSubmitStatus({
@@ -118,7 +126,7 @@ export default function ContactSection() {
       console.error("Form submission error:", error);
       setSubmitStatus({
         type: "error",
-        message: "Something went wrong. Please try again later.",
+        message: error instanceof Error ? error.message : "Something went wrong. Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
