@@ -7,6 +7,15 @@ import { slideUp, staggerContainer, defaultTransition } from "@/lib/animations";
 import ParticlesBackground from "./particles-background";
 import config from "@/config.json";
 
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
+
 export default function HeroSection() {
   // Use first option as default for SSR, then randomly select on client
   const [selectedContent, setSelectedContent] = useState(
@@ -21,6 +30,36 @@ export default function HeroSection() {
     type: "success" | "error" | null;
     message: string;
   }>({ type: null, message: "" });
+  const [recaptchaLoaded, setRecaptchaLoaded] = useState(false);
+
+  const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+
+  // Load reCAPTCHA v3 script
+  useEffect(() => {
+    if (!RECAPTCHA_SITE_KEY) {
+      console.warn("reCAPTCHA site key is not set");
+      return;
+    }
+
+    // Check if script is already loaded
+    if (window.grecaptcha) {
+      setRecaptchaLoaded(true);
+      return;
+    }
+
+    // Load the script
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      setRecaptchaLoaded(true);
+    };
+    document.head.appendChild(script);
+
+    // Note: We don't remove the script on cleanup because contact section might also be using it
+    // The script can be shared across components on the same page
+  }, [RECAPTCHA_SITE_KEY]);
 
   useEffect(() => {
     // Randomly select a headline/tagline only on client side
@@ -54,6 +93,35 @@ export default function HeroSection() {
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: "" });
 
+    // Execute reCAPTCHA v3
+    let captchaToken: string;
+    try {
+      if (!recaptchaLoaded || !window.grecaptcha) {
+        throw new Error("reCAPTCHA is not loaded. Please refresh the page.");
+      }
+
+      // Wrap grecaptcha.ready in a Promise
+      captchaToken = await new Promise<string>((resolve, reject) => {
+        window.grecaptcha.ready(async () => {
+          try {
+            const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, {
+              action: "submit",
+            });
+            resolve(token);
+          } catch (error) {
+            reject(new Error("Failed to execute reCAPTCHA. Please try again."));
+          }
+        });
+      });
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: error instanceof Error ? error.message : "reCAPTCHA verification failed. Please try again.",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const response = await fetch("/api/slack", {
         method: "POST",
@@ -65,6 +133,7 @@ export default function HeroSection() {
           message: "This person wants to reach",
           name: "",
           inquiryType: ["demo"],
+          captchaToken,
         }),
       });
 

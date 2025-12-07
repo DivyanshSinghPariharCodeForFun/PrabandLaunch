@@ -44,18 +44,19 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.json();
 
-    // Verify reCAPTCHA token
-    if (formData.captchaToken) {
-      const isValid = await verifyRecaptcha(formData.captchaToken);
-      if (!isValid) {
-        return NextResponse.json(
-          { error: "reCAPTCHA verification failed. Please try again." },
-          { status: 400 }
-        );
-      }
-    } else {
+    // reCAPTCHA token is MANDATORY for all submissions
+    if (!formData.captchaToken) {
       return NextResponse.json(
-        { error: "reCAPTCHA token is missing." },
+        { error: "reCAPTCHA token is required." },
+        { status: 400 }
+      );
+    }
+
+    // Verify reCAPTCHA token with Google
+    const isValid = await verifyRecaptcha(formData.captchaToken);
+    if (!isValid) {
+      return NextResponse.json(
+        { error: "reCAPTCHA verification failed. Please try again." },
         { status: 400 }
       );
     }

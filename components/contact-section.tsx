@@ -57,15 +57,8 @@ export default function ContactSection() {
     };
     document.head.appendChild(script);
 
-    return () => {
-      // Cleanup: remove script if component unmounts
-      const existingScript = document.querySelector(
-        `script[src*="recaptcha/api.js"]`
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
-    };
+    // Note: We don't remove the script on cleanup because hero section might also be using it
+    // The script can be shared across components on the same page
   }, [RECAPTCHA_SITE_KEY]);
 
   const inquiryTypes = [
