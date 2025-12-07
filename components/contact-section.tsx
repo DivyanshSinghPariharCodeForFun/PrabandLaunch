@@ -445,7 +445,44 @@ export default function ContactSection() {
                 />
               </div>
 
-              {/* reCAPTCHA v3 - invisible, runs automatically */}
+              {/* reCAPTCHA v3 Protection Notice */}
+              {RECAPTCHA_SITE_KEY && recaptchaLoaded && (
+                <div className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-50 rounded-lg border border-gray-200">
+                  <svg
+                    className="w-5 h-5 text-green-600"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  <span className="text-sm text-gray-700 font-medium">
+                    Protected by reCAPTCHA
+                  </span>
+                  <span className="text-xs text-gray-400">•</span>
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#00a7e1] hover:underline"
+                  >
+                    Privacy
+                  </a>
+                  <span className="text-xs text-gray-400">•</span>
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#00a7e1] hover:underline"
+                  >
+                    Terms
+                  </a>
+                </div>
+              )}
+
               {!RECAPTCHA_SITE_KEY && (
                 <div className="text-sm text-red-600 text-center">
                   reCAPTCHA site key is not configured
