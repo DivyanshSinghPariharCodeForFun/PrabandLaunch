@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { motion } from "framer-motion";
 import { scrollReveal, staggerContainer, slideUp, slideLeft, slideRight, scale } from "@/lib/animations";
 import config from "@/config.json";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -15,6 +16,14 @@ export default function ContactSection() {
     instituteName: "",
     message: "",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const inquiryTypes = [
     { value: "demo", label: "Demo Request" },
@@ -52,10 +61,66 @@ export default function ContactSection() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    // Validate captcha
+    if (!captchaToken) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please complete the reCAPTCHA verification.",
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/slack", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          captchaToken,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      setSubmitStatus({
+        type: "success",
+        message: "Thank you! Your message has been sent successfully.",
+      });
+
+      // Reset form after successful submission
+      setFormData({
+        inquiryType: [],
+        name: "",
+        email: "",
+        phone: "",
+        instituteName: "",
+        message: "",
+      });
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus({
+        type: "error",
+        message: "Something went wrong. Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -314,14 +379,44 @@ export default function ContactSection() {
                 />
               </div>
 
+              {/* reCAPTCHA */}
+              <div className="flex justify-center">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LffvSMsAAAAALaPCrtUeI6r_bJpa3eUNasGzos5"}
+                  onChange={handleCaptchaChange}
+                  theme="light"
+                />
+              </div>
+
+              {/* Status Message */}
+              {submitStatus.type && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`p-4 rounded-lg ${
+                    submitStatus.type === "success"
+                      ? "bg-green-100 text-green-800 border border-green-200"
+                      : "bg-red-100 text-red-800 border border-red-200"
+                  }`}
+                >
+                  {submitStatus.message}
+                </motion.div>
+              )}
+
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                className="w-full px-6 py-3 bg-[#00a7e1] text-white font-medium rounded-lg hover:bg-[#007ea7] transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
-                whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(0,167,225,0.3)" }}
-                whileTap={{ scale: 0.98 }}
+                disabled={isSubmitting}
+                className={`w-full px-6 py-3 font-medium rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
+                  isSubmitting
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-[#00a7e1] text-white hover:bg-[#007ea7]"
+                }`}
+                whileHover={!isSubmitting ? { scale: 1.02, boxShadow: "0 10px 25px rgba(0,167,225,0.3)" } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
                 <Send className="w-5 h-5" />
               </motion.button>
             </form>

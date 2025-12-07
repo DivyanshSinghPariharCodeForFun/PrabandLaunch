@@ -15,6 +15,13 @@ export default function HeroSection() {
       : { headline: "", tagline: "" }
   );
 
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
   useEffect(() => {
     // Randomly select a headline/tagline only on client side
     if (config.header && config.header.length > 0) {
@@ -22,6 +29,64 @@ export default function HeroSection() {
       setSelectedContent(config.header[randomIndex]);
     }
   }, []);
+
+  const handleGetStarted = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    
+    // Validate email
+    if (!email) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter your email address",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setSubmitStatus({
+        type: "error",
+        message: "Please enter a valid email address",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const response = await fetch("/api/slack", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          message: "This person wants to reach",
+          name: "",
+          inquiryType: ["demo"],
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      setSubmitStatus({
+        type: "success",
+        message: "Thank you! We'll be in touch soon.",
+      });
+      setEmail("");
+    } catch (error) {
+      console.error("Submission error:", error);
+      setSubmitStatus({
+        type: "error",
+        message: "Something went wrong. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section id="home" className="section bg-[#003459] relative min-h-screen pt-32 lg:pt-48 2xl:pt-56">
@@ -92,32 +157,43 @@ export default function HeroSection() {
                 <input
                   type="email"
                   placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 bg-transparent text-white placeholder:text-white/60 focus:outline-none text-base w-full"
+                  disabled={isSubmitting}
                 />
               </div>
               
               {/* Get Started Button */}
               <motion.button 
-                onClick={(e) => {
-                  e.preventDefault();
-                  const contactSection = document.querySelector("#contact");
-                  if (contactSection) {
-                    const offset = 100;
-                    const elementPosition = contactSection.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - offset;
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: "smooth",
-                    });
-                  }
-                }}
-                className="px-8 py-4 bg-[#00a7e1] text-white text-base font-medium hover:bg-[#007ea7] transition-all duration-200 flex-shrink-0 rounded-r-full"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                onClick={handleGetStarted}
+                disabled={isSubmitting}
+                className={`px-8 py-4 text-white text-base font-medium transition-all duration-200 flex-shrink-0 rounded-r-full ${
+                  isSubmitting 
+                    ? "bg-gray-400 cursor-not-allowed" 
+                    : "bg-[#00a7e1] hover:bg-[#007ea7]"
+                }`}
+                whileHover={!isSubmitting ? { scale: 1.05 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.95 } : {}}
               >
-                Get Started
+                {isSubmitting ? "Sending..." : "Get Started"}
               </motion.button>
             </motion.div>
+
+            {/* Status Message */}
+            {submitStatus.type && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mt-4 p-4 rounded-lg ${
+                  submitStatus.type === "success"
+                    ? "bg-green-500/20 text-white border border-green-500/50"
+                    : "bg-red-500/20 text-white border border-red-500/50"
+                }`}
+              >
+                {submitStatus.message}
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </motion.div>
