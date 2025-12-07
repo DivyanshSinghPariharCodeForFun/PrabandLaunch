@@ -2,17 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const textData = await request.json();
+
+    // Identify submission type
+    if (textData.email && !textData.phone) {
+      console.log("📧 Hero section email submission");
+    } else if (textData.email && textData.phone) {
+      console.log("📝 Contact form submission");
+    }
+
+    const body = {text: textData};
     
     // Log the incoming request
     console.log("📥 Received submission:", JSON.stringify(body, null, 2));
-    
-    // Identify submission type
-    if (body.email && !body.phone) {
-      console.log("📧 Hero section email submission");
-    } else if (body.email && body.phone) {
-      console.log("📝 Contact form submission");
-    }
 
     // Forward the request to the external Slack API
     const response = await fetch("https://slack-hook.praband.com/api/slack", {

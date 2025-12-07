@@ -87,8 +87,10 @@ export default function ContactSection() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
-          captchaToken,
+          text: {
+            ...formData,
+            captchaToken,
+          }
         }),
       });
 

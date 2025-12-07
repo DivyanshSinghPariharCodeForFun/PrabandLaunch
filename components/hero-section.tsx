@@ -61,10 +61,12 @@ export default function HeroSection() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
-          message: "This person wants to reach",
-          name: "",
-          inquiryType: ["demo"],
+          text: {
+            email,
+            message: "This person wants to reach",
+            name: "",
+            inquiryType: ["demo"],
+          }
         }),
       });
 
